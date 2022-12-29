@@ -1,7 +1,7 @@
 ---
-title: "Algoritma Fuzzy C-Means"
+title: "Algoritma Fuzzy C-Means dengan R"
 date: "`r Sys.Date()`"
-author: Salmaa Shafira-Institut Teknologi Statistika dan Bisnis Muhammadiyah
+author: SalmaaShafira-Institut Teknologi Statistika dan Bisnis Muhammadiyah
 output:
   rmdformats::readthedown:
     self_contained: true
@@ -22,24 +22,43 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# R Markdown
+# Algoritma
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents [@deCarvalho2012]. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Introduction
+Clustering merupakan salah satu metode machine learning dan termasuk dalam unsupervised learning. Dalam unsupervised learning lebih fokus dalam melakukan eksplorasi data seperti mencari pola dalam data. Clustering sendiri bertujuan mencari pola data yang mirip sehingga memiliki kemungkinan dalam mengelompokkan data-data yang mirip tersebut.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Fuzzy C-means clustering
+Fuzzy c-means merupakan salah satu jenis soft clustering di mana dalam mengelompokan suatu data, setiap data bisa dimiliki lebih dari satu cluster.
 
-```{r cars}
-summary(cars)
+# Tahapan Algoritma Fuzzy C-means
+
+# Eksperimen Algoritma Fuzzy C-means
+## library
+```{r warning=FALSE, eval=FALSE}
+library(ppclust)
+library(factoextra)
+library(dplyr)
+library(cluster)
+library(fclust)
+```
+## loading data set
+```{r}
+data(iris)
+x=iris[,-5]
+x
+```
+```{r}
+pairs(x, col=iris[,5])
+```
+```{r}
+cor(iris[,1:4])
+```
+```{r warning=FALSE}
+library(psych)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+pairs.panels(iris[,-5], method = "pearson")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-# Referensi
