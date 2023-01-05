@@ -34,6 +34,8 @@ Fuzzy c-means merupakan salah satu jenis soft clustering di mana dalam mengelomp
 
 # Eksperimen Algoritma Fuzzy C-means
 ## library
+Sebelum memasukkan data, kita perlu memanggil library terlebih dahulu dan meng install beberapa packages yang tidak tersedia.
+
 ```{r warning=FALSE, eval=FALSE}
 library(ppclust)
 library(factoextra)
@@ -41,18 +43,27 @@ library(dplyr)
 library(cluster)
 library(fclust)
 ```
-## loading data set
+## Input Data set
+Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set IRIS.
+
 ```{r}
 data(iris)
-x=iris[,-5]
-x
+data=iris[,-5]
+data [1:10,]
 ```
+
+## Lakukan Analisis Korelasi
+Dari data set diatas, lakukan analisis korelasi untuk mengetahui nilai korelasi pada setiap variabel.
+
 ```{r}
-pairs(x, col=iris[,5])
+pairs(data, col=iris[,5])
 ```
 ```{r}
 cor(iris[,1:4])
 ```
+Variabel yang menunjukkan adanya korelasi kuat adalah Petal Length dan Sepal Length, Petal Width dan Sepal Length, Sepal Length dan Petal Length, Petal Width dan Petal Length, Sepal Length dan Petal Width, serta Petal Length dan Petal Width.
+
+## Melihat Sebaran data
 ```{r warning=FALSE}
 library(psych)
 ```
@@ -60,5 +71,5 @@ library(psych)
 ```{r}
 pairs.panels(iris[,-5], method = "pearson")
 ```
-
+Dilihat dari sebaran data diatas variabel yang mendekati distribbusi normal adalah sepal.width
 
