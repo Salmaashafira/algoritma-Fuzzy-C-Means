@@ -50,12 +50,25 @@ Pada tahapan ini menggunakan data set IRIS, dengan n=10
 	- Menentukan bobot pangkat (w > 1)
 	- Menentukan jumlah maksimal iterasi 
 	- Menentukan threshold perubahan fungsi obyektif.
+	
+### 3. Berikan nilai keanggotaan setiap data pada cluster secara acak.
+Dengan syarat jumlah nilai pada keseluruhan cluster bernilai = 1
 
+\begin{equation}\sum_{i=1}^k U i j=1\end{equation}
 
+### 4. Menghitung nilai centroid. 
+Dalam menghitung nilai centroid, kita menggunakan formula berikut :
 
+\begin{equation}C_j=\frac{\sum u_{i j}^m x}{\sum u_{i j}^m}\end{equation}
+
+### 5. Menghitung kembali nilai proporsi untuk setiap data poin untuk masuk pada setiap cluster.
+Formula yang digunakan yaitu sebagai berikut :
+
+\begin{equation}u_{i j}^m=\frac{1}{\sum\left(\frac{\left|x_i-c_j\right|}{\left|x_i-c_k\right|}\right)^{\frac{2}{m-1}}}\end{equation}
 
 
 # Eksperimen Algoritma Fuzzy C-means
+
 ## library
 Sebelum memasukkan data, kita perlu memanggil library terlebih dahulu dan meng install beberapa packages yang tidak tersedia.
 
@@ -66,28 +79,88 @@ library(dplyr)
 library(cluster)
 library(fclust)
 ```
+
 ## Input Data set
-Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set IRIS.
+Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set Wine Quality.
 
 ```{r}
-data(iris)
-data=iris[,-5]
-data [1:10,]
+library (readxl)
+data <- read_excel("D:/MATKUL SMST 3/DATA MINING/algoritma-Fuzzy-C-Means/WINEQUality-red.xlsx")
 ```
-```{r}
-pairs(iris, col=iris[,5])
+
+
+Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita ambil n=10
+```{r WARNING = FALSE}
+data
+data_wine = data
+head (data_wine,n=10)
 ```
-```{r}
-cor(iris[,1:4])
+
+### Mengetahui Korelari antar variabel
+Menampilkan Korelasi data wine 4 baris pertama
+```{r WARNING = FALSE}
+cor(data_wine [,1:4])
 ```
-```{r WARNING=FALSE}
+
+```{r WARNINNG = FALSE}
 library(psych)
 ```
 
-```{r}
-pairs.panels(iris[,-5], method = "pearson")
+## Inisialisasi Data
+
+Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=3
+
+```{r WARNING = FALSE}
+library(ppclust)
+res.fcm <- fcm(data_wine, centers=3)
 ```
 
+```{r}
+as.data.frame(res.fcm$u)[1:10,]
+```
+
+## Inisial Cluster awal (matriks prototype)
+
+```{r WARNING = FALSE}
+res.fcm$v0
+```
+
+```{r}
+res.fcm$v
+```
+
+```{r}
+summary(res.fcm)
+```
+
+## Run FCM with Multiple Starts
+
+```{r WARNING = FALSE}
+library(ppclust)
+res.fcm <- fcm(data_wine, centers=3, nstart=5)
+
+res.fcm$func.val
+```
+
+```{r}
+res.fcm$iter
+```
+
+```{r}
+res.fcm$best.start
+```
+
+```{r}
+summary(res.fcm)
+```
+
+## Cluster Plot
+
+Cluster plot menggunakan pairwise scatter plots
+```{r}
+library (ppclust)
+res.fcm3 <- ppclust2(res.fcm, "fanny")
+```
 
 
 
