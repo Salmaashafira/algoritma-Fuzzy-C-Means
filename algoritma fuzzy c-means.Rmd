@@ -43,7 +43,7 @@ objek data adalah anggota dari semua cluster dengan derajat keanggotaan fuzzy ya
 # Tahapan Algoritma Fuzzy C-means
 
 ### 1. Siapkan data set yang digunakan
-Pada tahapan ini menggunakan data set IRIS, dengan n=10
+Pada tahapan ini menggunakan data set Wine Quality.
 
 ### 2. Melakukan INISIALISASI:
 	- Menentukan jumlah cluster ( k>= 1)
@@ -83,14 +83,14 @@ library(fclust)
 ## Input Data set
 Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set Wine Quality.
 
-```{r}
+```{r warning=FALSE}
 library (readxl)
 data <- read_excel("D:/MATKUL SMST 3/DATA MINING/algoritma-Fuzzy-C-Means/WINEQUality-red.xlsx")
 ```
 
+Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita tampilkan n=10
 
-Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita ambil n=10
-```{r WARNING = FALSE}
+```{r warning=FALSE}
 data
 data_wine = data
 head (data_wine,n=10)
@@ -98,21 +98,21 @@ head (data_wine,n=10)
 
 ### Mengetahui Korelari antar variabel
 Menampilkan Korelasi data wine 4 baris pertama
-```{r WARNING = FALSE}
+```{r warning=FALSE}
 cor(data_wine [,1:4])
 ```
 
-```{r WARNINNG = FALSE}
+```{r eval=FALSE}
 library(psych)
 ```
 
 ## Inisialisasi Data
 
-Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=3
+Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=5
 
-```{r WARNING = FALSE}
+```{r}
 library(ppclust)
-res.fcm <- fcm(data_wine, centers=3)
+res.fcm <- fcm(data_wine, centers=5)
 ```
 
 ```{r}
@@ -121,7 +121,7 @@ as.data.frame(res.fcm$u)[1:10,]
 
 ## Inisial Cluster awal (matriks prototype)
 
-```{r WARNING = FALSE}
+```{r}
 res.fcm$v0
 ```
 
@@ -136,8 +136,9 @@ summary(res.fcm)
 ## Run FCM with Multiple Starts
 
 ```{r WARNING = FALSE}
+
 library(ppclust)
-res.fcm <- fcm(data_wine, centers=3, nstart=5)
+res.fcm <- fcm(data_wine, centers=5, nstart=5)
 
 res.fcm$func.val
 ```
@@ -146,7 +147,7 @@ res.fcm$func.val
 res.fcm$iter
 ```
 
-```{r}
+```{r WARNING = FALSE}
 res.fcm$best.start
 ```
 
@@ -154,15 +155,9 @@ res.fcm$best.start
 summary(res.fcm)
 ```
 
-## Cluster Plot
 
-Cluster plot menggunakan pairwise scatter plots
-```{r}
-library (ppclust)
-res.fcm3 <- ppclust2(res.fcm, "fanny")
-```
-
-
-
-
+# Referensi
+<https://rpubs.com/rahulSaha/Fuzzy-CMeansClustering>
+<https://algoritmaonline.com/fuzzy-clustering/>
+<https://algotech.netlify.app/blog/fuzzy-clustering/>
 

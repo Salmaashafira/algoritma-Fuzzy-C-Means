@@ -7,7 +7,7 @@
 
         <meta name="author" content="SalmaaShafira-Institut Teknologi Statistika dan Bisnis Muhammadiyah" />
     
-        <meta name="date" content="2023-01-13" />
+        <meta name="date" content="2023-01-18" />
     
     <title>Algoritma Fuzzy C-Means dengan R</title>
 
@@ -202,13 +202,13 @@
       <li><a href="#inisialisasi-data">Inisialisasi Data</a></li>
       <li><a href="#inisial-cluster-awal-matriks-prototype">Inisial Cluster awal (matriks prototype)</a></li>
       <li><a href="#run-fcm-with-multiple-starts">Run FCM with Multiple Starts</a></li>
-      <li><a href="#cluster-plot">Cluster Plot</a></li>
       </ul></li>
+      <li><a href="#referensi">Referensi</a></li>
       </ul>
     </div>
     <div id="postamble" data-toggle="wy-nav-shift" class="status">
                   <p class="author"><span class="glyphicon glyphicon-user"></span> SalmaaShafira-Institut Teknologi Statistika dan Bisnis Muhammadiyah</p>
-                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-13</p>
+                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-18</p>
           </div>
    </div>
      
@@ -244,7 +244,7 @@ text-align: justify}
 <h1>Tahapan Algoritma Fuzzy C-means</h1>
 <div id="siapkan-data-set-yang-digunakan" class="section level3">
 <h3>1. Siapkan data set yang digunakan</h3>
-<p>Pada tahapan ini menggunakan data set IRIS, dengan n=10</p>
+<p>Pada tahapan ini menggunakan data set Wine Quality.</p>
 </div>
 <div id="melakukan-inisialisasi" class="section level3">
 <h3>2. Melakukan INISIALISASI:</h3>
@@ -283,11 +283,10 @@ text-align: justify}
 <div id="input-data-set" class="section level2">
 <h2>Input Data set</h2>
 <p>Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set Wine Quality.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (readxl)</span></code></pre></div>
-<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.1.3</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;D:/MATKUL SMST 3/DATA MINING/algoritma-Fuzzy-C-Means/WINEQUality-red.xlsx&quot;</span>)</span></code></pre></div>
-<p>Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita ambil n=10</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;D:/MATKUL SMST 3/DATA MINING/algoritma-Fuzzy-C-Means/WINEQUality-red.xlsx&quot;</span>)</span></code></pre></div>
+<p>Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita tampilkan n=10</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
 <pre><code>## # A tibble: 1,599 x 12
 ##    fixed~1 volat~2 citri~3 resid~4 chlor~5 free ~6 total~7 density    pH sulph~8
 ##      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -305,8 +304,8 @@ text-align: justify}
 ## #   abbreviated variable names 1: `fixed acidity`, 2: `volatile acidity`,
 ## #   3: `citric acid`, 4: `residual sugar`, 5: chlorides,
 ## #   6: `free sulfur dioxide`, 7: `total sulfur dioxide`, 8: sulphates</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_wine <span class="ot">=</span> data</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (data_wine,<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_wine <span class="ot">=</span> data</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (data_wine,<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 12
 ##    fixed~1 volat~2 citri~3 resid~4 chlor~5 free ~6 total~7 density    pH sulph~8
 ##      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -327,200 +326,228 @@ text-align: justify}
 <div id="mengetahui-korelari-antar-variabel" class="section level3">
 <h3>Mengetahui Korelari antar variabel</h3>
 <p>Menampilkan Korelasi data wine 4 baris pertama</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data_wine [,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data_wine [,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
 <pre><code>##                  fixed acidity volatile acidity citric acid residual sugar
 ## fixed acidity        1.0000000     -0.256130895   0.6717034    0.114776724
 ## volatile acidity    -0.2561309      1.000000000  -0.5524957    0.001917882
 ## citric acid          0.6717034     -0.552495685   1.0000000    0.143577162
 ## residual sugar       0.1147767      0.001917882   0.1435772    1.000000000</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
-<pre><code>## Warning: package &#39;psych&#39; was built under R version 4.1.3</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
 </div>
 </div>
 <div id="inisialisasi-data" class="section level2">
 <h2>Inisialisasi Data</h2>
-<p>Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=3</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ppclust)</span></code></pre></div>
+<p>Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=5</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ppclust)</span></code></pre></div>
 <pre><code>## Warning: package &#39;ppclust&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;ppclust&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:psych&#39;:
-## 
-##     pca</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>res.fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(data_wine, <span class="at">centers=</span><span class="dv">3</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res.fcm<span class="sc">$</span>u)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
-<pre><code>##     Cluster 1   Cluster 2  Cluster 3
-## 1  0.77192535 0.020388342 0.20768631
-## 2  0.05547967 0.072080615 0.87243971
-## 3  0.04103146 0.013947488 0.94502106
-## 4  0.03209320 0.019625226 0.94828157
-## 5  0.77192535 0.020388342 0.20768631
-## 6  0.45927126 0.032447771 0.50828097
-## 7  0.03861991 0.020855322 0.94052477
-## 8  0.96006636 0.005413128 0.03452051
-## 9  0.98591606 0.002172475 0.01191146
-## 10 0.01950842 0.922935376 0.05755621</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res.fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(data_wine, <span class="at">centers=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res.fcm<span class="sc">$</span>u)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<pre><code>##       Cluster 1  Cluster 2   Cluster 3  Cluster 4   Cluster 5
+## 1  0.0020591363 0.06844321 0.006029998 0.89819334 0.025274316
+## 2  0.0114844663 0.01761281 0.081665364 0.04841328 0.840824078
+## 3  0.0112451499 0.05046283 0.049195785 0.24177796 0.647318267
+## 4  0.0089896358 0.02513874 0.047320279 0.08814917 0.830402174
+## 5  0.0020591363 0.06844321 0.006029998 0.89819334 0.025274316
+## 6  0.0015998028 0.02522306 0.005162930 0.93982489 0.028189311
+## 7  0.0112569589 0.03483983 0.057003949 0.12787398 0.769025278
+## 8  0.0047844540 0.70703317 0.012046564 0.23746536 0.038670455
+## 9  0.0006447093 0.97082457 0.001564833 0.02248287 0.004483022
+## 10 0.1075044822 0.01617797 0.785507082 0.02767444 0.063136031</code></pre>
 </div>
 <div id="inisial-cluster-awal-matriks-prototype" class="section level2">
 <h2>Inisial Cluster awal (matriks prototype)</h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>v0</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>v0</span></code></pre></div>
 <pre><code>##           fixed acidity volatile acidity citric acid residual sugar chlorides
-## Cluster 1          10.5             0.24        0.47            2.1     0.066
-## Cluster 2           7.7             0.54        0.26            1.9     0.089
-## Cluster 3           7.2             0.62        0.06            2.5     0.078
+## Cluster 1           8.9            0.595        0.41            7.9     0.086
+## Cluster 2           6.6            0.570        0.02            2.1     0.115
+## Cluster 3           8.2            0.640        0.27            2.0     0.095
+## Cluster 4           7.2            0.360        0.46            2.1     0.074
+## Cluster 5           7.2            0.410        0.30            2.1     0.083
 ##           free sulfur dioxide total sulfur dioxide density   pH sulphates
-## Cluster 1                   6                   24 0.99780 3.15      0.90
-## Cluster 2                  23                  147 0.99636 3.26      0.59
-## Cluster 3                  17                   84 0.99746 3.51      0.53
+## Cluster 1                  30                  109 0.99980 3.27      0.57
+## Cluster 2                   6                   16 0.99654 3.38      0.69
+## Cluster 3                   5                   77 0.99747 3.13      0.62
+## Cluster 4                  24                   44 0.99534 3.40      0.85
+## Cluster 5                  35                   72 0.99700 3.44      0.52
 ##           alcohol quality
-## Cluster 1    11.0       7
-## Cluster 2     9.7       5
-## Cluster 3     9.7       5</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>v</span></code></pre></div>
+## Cluster 1     9.3       5
+## Cluster 2     9.5       5
+## Cluster 3     9.1       6
+## Cluster 4    11.0       7
+## Cluster 5     9.4       5</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>v</span></code></pre></div>
 <pre><code>##           fixed acidity volatile acidity citric acid residual sugar  chlorides
-## Cluster 1      8.533181        0.5181678   0.2752403       2.384693 0.08442681
-## Cluster 2      7.923123        0.5641591   0.2810754       3.084972 0.08745041
-## Cluster 3      8.206881        0.5215515   0.2663896       2.472004 0.09188496
+## Cluster 1      8.111173        0.5630854   0.3220769       3.113951 0.08833648
+## Cluster 2      8.666728        0.5155081   0.2920574       2.434216 0.08550960
+## Cluster 3      7.821936        0.5829549   0.2498367       2.879001 0.08685610
+## Cluster 4      8.207523        0.5276560   0.2387213       2.322465 0.08650437
+## Cluster 5      8.143923        0.5173805   0.2705070       2.441825 0.09386082
 ##           free sulfur dioxide total sulfur dioxide   density       pH sulphates
-## Cluster 1            8.787981             21.91524 0.9966460 3.306099 0.6505909
-## Cluster 2           25.841448            109.03643 0.9969078 3.277954 0.6583179
-## Cluster 3           21.586258             55.45067 0.9968344 3.325372 0.6777269
-##            alcohol  quality
-## Cluster 1 10.59155 5.748142
-## Cluster 2 10.00014 5.284056
-## Cluster 3 10.34261 5.605126</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res.fcm)</span></code></pre></div>
+## Cluster 1           29.764935            132.43278 0.9971610 3.235318 0.7120772
+## Cluster 2            6.884509             17.23617 0.9966353 3.295084 0.6490544
+## Cluster 3           22.303909             91.44516 0.9968350 3.325858 0.6288155
+## Cluster 4           14.542174             36.82602 0.9967029 3.336375 0.6455753
+## Cluster 5           23.939370             59.46899 0.9968716 3.328914 0.6863725
+##             alcohol  quality
+## Cluster 1  9.774755 5.093139
+## Cluster 2 10.654625 5.748832
+## Cluster 3 10.111774 5.433166
+## Cluster 4 10.425196 5.696972
+## Cluster 5 10.309766 5.575234</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res.fcm)</span></code></pre></div>
 <pre><code>## Summary for &#39;res.fcm&#39;
 ## 
 ## Number of data objects:  1599 
 ## 
-## Number of clusters:  3 
+## Number of clusters:  5 
 ## 
 ## Crisp clustering vector:
-##    [1] 1 3 3 3 1 3 3 1 1 2 3 2 3 1 2 2 2 3 1 3 3 3 1 3 3 1 1 1 1 1 3 3 2 2 3 1 1
-##   [38] 1 1 2 2 3 1 1 1 3 2 1 1 2 1 1 1 2 3 3 1 2 3 3 3 2 1 3 1 1 1 1 3 1 1 2 2 3
-##   [75] 2 3 3 1 3 2 1 3 3 3 3 3 2 1 2 1 2 2 2 1 2 2 1 1 1 1 3 1 1 3 1 3 3 3 3 2 3
-##  [112] 2 2 3 3 3 1 1 3 2 2 3 1 1 2 2 1 1 1 1 2 2 2 1 1 3 3 3 2 2 3 3 3 1 3 2 2 2
-##  [149] 1 3 1 3 2 2 2 2 2 2 1 2 1 1 1 2 2 2 2 3 3 3 1 1 1 3 1 3 1 1 1 3 3 2 3 3 3
-##  [186] 2 3 1 2 2 2 3 2 1 1 2 3 1 2 1 1 2 3 3 1 1 1 2 2 1 1 3 1 3 3 2 3 3 3 2 3 3
-##  [223] 1 1 3 3 3 1 3 1 2 3 3 1 1 1 1 3 1 1 3 1 2 1 1 1 3 3 1 1 1 1 1 2 1 2 1 3 3
-##  [260] 1 3 3 1 3 1 1 3 1 1 1 3 1 3 1 2 3 1 1 1 3 1 1 3 3 3 3 3 3 3 2 3 1 3 1 3 1
-##  [297] 3 1 1 1 3 1 1 1 2 1 3 1 1 1 1 2 2 2 3 3 2 3 3 3 3 2 1 3 3 3 1 1 1 1 3 3 2
-##  [334] 3 1 1 1 3 2 1 1 1 1 1 1 3 1 1 3 1 1 1 1 3 2 1 3 1 1 3 3 3 1 1 3 1 3 1 3 1
-##  [371] 3 1 3 3 3 1 3 1 1 3 1 3 1 1 3 1 3 3 3 3 2 3 1 2 1 1 2 3 3 3 2 3 3 3 1 1 1
-##  [408] 1 1 3 2 3 3 1 2 2 1 2 1 3 3 3 3 1 3 3 3 1 1 1 1 3 1 1 3 1 3 1 3 3 1 1 3 1
-##  [445] 1 1 3 1 1 1 1 1 1 1 3 1 1 3 1 3 1 1 1 2 1 1 3 1 1 3 3 3 3 1 1 1 1 1 1 1 1
-##  [482] 1 1 1 1 1 1 1 3 1 3 1 1 3 2 1 1 2 1 3 1 3 3 1 1 1 1 1 3 3 3 3 3 1 1 2 1 1
-##  [519] 1 2 1 3 2 2 2 3 2 2 3 1 1 3 3 1 1 1 1 1 1 1 3 1 1 3 1 2 1 1 3 1 1 3 3 2 1
-##  [556] 1 1 1 1 3 1 2 2 3 3 1 1 1 1 3 1 3 1 3 3 3 1 2 2 3 1 1 1 1 2 1 3 2 3 1 3 2
-##  [593] 3 3 3 2 1 1 1 1 1 1 1 1 3 1 1 3 3 3 3 1 1 1 2 3 3 1 1 1 2 2 1 3 3 3 1 1 1
-##  [630] 2 1 1 3 2 2 1 2 2 1 3 3 3 3 3 3 1 1 1 1 2 1 2 3 1 1 3 1 3 1 1 1 3 1 1 3 3
-##  [667] 1 1 1 1 3 1 2 1 1 1 1 1 2 3 3 1 3 1 2 1 3 1 1 1 1 2 3 2 2 3 1 1 3 1 2 1 1
-##  [704] 2 1 3 1 1 1 1 2 2 1 3 3 1 3 3 1 3 1 2 3 2 1 1 3 1 1 3 1 1 1 3 1 1 1 3 2 3
-##  [741] 1 2 1 2 2 1 3 3 1 1 3 3 3 3 1 3 1 1 1 2 2 1 1 1 3 3 3 2 2 1 2 2 2 1 3 1 3
-##  [778] 1 1 2 3 1 2 1 2 3 3 3 3 2 3 2 2 1 1 3 3 3 1 1 2 1 2 3 1 1 1 1 1 1 1 1 3 1
-##  [815] 3 3 1 1 3 3 1 3 1 1 1 1 1 1 3 1 1 1 3 3 1 3 2 2 1 1 1 1 3 2 3 1 1 1 1 1 1
-##  [852] 1 2 3 3 1 3 3 1 1 2 2 1 2 2 2 1 1 1 3 3 3 3 1 1 1 1 3 3 2 1 3 1 2 3 1 1 3
-##  [889] 3 2 3 2 1 2 2 3 3 3 3 1 1 1 1 1 1 2 3 1 3 1 1 1 1 1 1 1 3 3 3 3 1 3 3 3 1
-##  [926] 3 3 3 1 1 1 1 3 1 1 3 3 1 3 1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 1 3 1
-##  [963] 1 1 3 3 1 2 3 1 1 1 1 1 1 3 3 2 1 1 1 1 3 1 1 1 1 3 1 1 1 3 3 3 2 3 1 1 1
-## [1000] 1 1 3 1 1 3 1 1 1 1 3 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 3 1 3 3 1 1 1 1 1 3 1
-## [1037] 3 3 3 3 1 1 3 3 3 3 3 3 1 1 3 3 1 1 3 3 1 2 3 1 1 1 1 1 1 1 1 1 1 3 1 2 3
-## [1074] 1 2 3 1 1 1 2 1 2 3 3 3 3 1 1 3 3 3 1 1 1 1 1 1 1 1 1 3 1 1 1 1 3 1 1 1 3
-## [1111] 1 3 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 3 2 3 1 2 3 1 1 3 1 1 2 2 3 3 1 1 3 3 1
-## [1148] 1 1 1 1 3 1 1 3 1 2 2 3 1 1 1 1 1 1 1 3 3 3 1 1 3 1 3 3 3 3 1 3 3 3 1 3 3
-## [1185] 2 1 1 1 2 1 1 1 3 1 3 3 2 1 3 2 1 1 1 3 3 3 3 3 3 1 1 3 1 1 1 1 3 3 1 3 3
-## [1222] 3 2 1 1 3 3 1 2 3 3 2 3 1 1 2 1 1 1 1 3 3 3 2 2 1 3 1 1 3 3 3 1 1 1 3 3 3
-## [1259] 1 1 3 1 3 1 3 1 1 1 3 2 3 3 3 3 1 3 1 1 3 1 3 3 1 3 1 3 1 1 2 2 1 3 1 1 3
-## [1296] 3 3 1 1 1 1 3 1 3 3 2 2 1 2 3 2 1 3 3 3 2 3 3 2 3 2 3 1 3 1 1 1 1 1 2 2 3
-## [1333] 1 3 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 1 1 1 3 2 1 1 3 1 3 1 3 3 2 3
-## [1370] 1 3 1 3 2 1 2 1 3 1 1 1 1 2 2 2 2 1 1 3 2 1 1 1 3 3 1 1 2 1 1 2 2 1 1 3 1
-## [1407] 1 3 3 3 1 1 1 2 1 1 1 3 1 2 1 3 3 1 1 1 3 1 3 3 3 3 1 1 2 2 2 3 1 2 1 2 1
-## [1444] 1 2 2 1 3 3 1 1 1 3 2 1 1 2 2 1 1 3 1 1 1 3 3 3 1 3 3 1 1 3 3 2 2 2 2 1 1
-## [1481] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 3 3 1 1 1 1 1 1 1 3 1 1 3 3 3 3
-## [1518] 3 1 1 3 1 3 3 3 1 3 1 3 3 1 1 1 2 1 1 3 1 1 3 1 3 3 1 1 1 1 1 3 1 1 1 3 1
-## [1555] 1 1 1 1 2 2 2 2 1 1 1 3 3 1 3 1 1 1 2 3 2 1 1 1 1 1 1 1 1 2 1 3 3 1 2 3 3
-## [1592] 1 3 3 3 3 3 3 3
+##    [1] 4 5 5 5 4 4 5 2 2 3 5 3 5 4 1 1 3 5 4 5 5 5 4 5 4 2 2 4 4 2 3 4 3 3 4 2 2
+##   [38] 4 2 3 3 4 2 2 2 5 1 4 2 3 2 2 2 1 5 4 2 1 5 4 5 3 4 5 2 2 4 2 5 2 4 3 3 4
+##   [75] 3 4 4 4 3 1 2 5 5 5 5 4 1 4 1 2 1 1 1 4 3 3 2 2 2 4 4 2 4 5 4 5 5 5 3 1 4
+##  [112] 3 3 4 4 5 4 2 5 3 3 5 2 4 3 3 2 2 2 2 1 3 3 4 4 5 5 4 3 3 5 5 5 2 5 1 3 3
+##  [149] 4 4 2 5 3 3 1 1 1 1 2 3 2 2 4 1 1 3 3 4 4 5 2 2 2 4 4 5 4 4 2 4 4 3 4 5 5
+##  [186] 3 5 2 1 1 1 5 1 2 2 1 5 4 3 4 2 1 4 4 4 4 4 1 3 2 2 5 2 5 4 1 4 4 4 1 5 5
+##  [223] 2 2 5 5 3 2 5 4 3 4 5 4 4 4 4 4 4 4 5 2 3 2 2 2 5 5 4 2 4 4 2 3 4 1 2 5 4
+##  [260] 4 4 5 4 5 2 2 5 4 2 2 5 2 5 4 3 5 2 2 2 4 2 2 5 4 5 5 5 5 5 3 5 2 4 2 5 2
+##  [297] 5 4 4 4 4 2 4 2 3 2 5 2 2 4 2 3 3 1 5 5 3 5 5 5 5 3 2 5 4 4 2 2 2 2 4 4 1
+##  [334] 4 4 2 2 5 3 4 2 2 2 2 4 5 4 2 4 4 4 2 2 3 1 4 5 4 2 4 3 5 4 2 4 2 4 2 5 2
+##  [371] 5 2 5 5 4 2 4 2 2 5 4 4 4 4 5 4 5 4 5 4 3 4 2 3 2 4 1 4 4 4 1 4 5 4 4 2 4
+##  [408] 4 2 5 3 3 3 2 1 1 2 1 2 5 5 5 5 2 5 5 4 4 4 4 2 5 2 2 5 2 5 2 5 4 4 2 4 2
+##  [445] 2 4 5 2 2 4 4 2 4 2 5 2 2 5 2 4 2 2 2 1 2 2 5 2 2 5 4 5 5 2 2 2 2 2 2 4 2
+##  [482] 2 2 2 2 2 2 2 5 2 5 2 4 3 3 2 4 1 2 3 4 5 5 2 2 2 2 2 5 4 4 5 4 2 2 1 2 2
+##  [519] 4 3 4 4 1 1 1 5 3 3 5 4 2 4 4 4 4 2 4 2 4 2 4 2 2 5 2 3 4 2 5 2 2 4 4 3 2
+##  [556] 2 2 2 2 4 2 1 1 5 4 2 2 2 2 4 4 4 4 4 3 5 2 3 3 4 2 2 2 2 3 4 4 3 5 2 5 1
+##  [593] 5 4 4 3 2 2 4 2 2 4 2 4 5 2 2 5 5 4 5 2 4 4 3 5 5 4 2 2 3 3 4 4 5 5 2 2 4
+##  [630] 3 4 2 4 3 3 4 1 1 2 5 4 5 4 5 4 2 2 2 4 1 4 1 5 4 4 5 4 4 2 2 2 4 2 2 5 5
+##  [667] 2 2 4 2 5 2 1 2 2 4 2 4 3 5 4 4 5 2 1 2 4 4 2 2 2 3 5 1 1 4 2 2 5 2 3 2 2
+##  [704] 3 2 5 2 4 4 4 3 3 4 4 3 4 4 4 2 4 2 3 4 1 2 2 5 2 2 5 4 2 2 5 4 2 2 5 3 4
+##  [741] 2 1 2 3 3 4 5 5 4 4 4 4 5 4 4 4 4 4 4 3 3 4 2 4 4 4 5 3 3 4 3 1 1 4 4 2 4
+##  [778] 2 4 3 4 4 3 4 3 5 5 5 5 1 3 1 3 2 2 5 5 4 2 2 3 2 3 4 2 2 2 2 2 2 2 2 4 2
+##  [815] 4 4 4 4 4 5 2 4 4 4 2 4 2 4 5 2 2 2 5 5 2 5 3 3 4 2 4 4 5 3 4 4 4 4 4 4 2
+##  [852] 2 1 5 5 2 5 4 4 2 3 3 2 3 3 3 2 2 2 4 4 5 5 2 2 2 2 4 5 3 2 4 4 3 5 4 2 5
+##  [889] 5 3 5 3 2 3 3 4 4 4 4 2 4 4 4 2 2 1 3 2 5 2 2 2 2 2 2 2 5 4 3 5 2 3 5 4 4
+##  [926] 5 5 3 4 2 2 4 5 4 2 5 5 2 4 2 2 2 5 4 2 2 2 2 2 2 2 2 2 2 2 2 2 4 4 4 4 2
+##  [963] 2 4 4 5 2 1 5 2 2 2 2 2 2 5 5 1 4 2 2 4 5 2 2 2 2 5 4 2 4 5 5 5 3 4 2 2 2
+## [1000] 2 2 5 4 2 5 2 4 2 2 5 2 2 4 4 2 4 4 3 3 2 2 2 2 2 2 4 4 5 5 2 2 2 2 4 4 2
+## [1037] 4 5 4 4 4 2 4 4 5 4 5 5 2 2 5 4 4 2 3 3 2 3 5 2 2 2 2 2 2 2 2 2 2 5 4 3 5
+## [1074] 4 3 5 2 2 2 1 2 1 5 5 5 5 2 4 4 4 5 2 2 4 2 2 2 2 2 2 4 2 4 2 4 4 2 2 2 5
+## [1111] 2 5 4 2 3 2 2 2 2 2 2 4 4 4 2 4 2 5 3 5 2 1 4 2 2 5 2 2 3 3 3 5 2 2 5 5 2
+## [1148] 2 2 2 2 5 4 4 5 4 3 3 5 4 2 2 2 2 2 4 5 5 4 2 2 4 2 5 5 5 5 2 3 4 4 2 5 5
+## [1185] 1 4 2 4 1 2 2 2 4 2 5 5 3 2 3 3 2 2 2 3 4 4 4 5 4 2 2 5 2 2 2 4 3 5 2 5 4
+## [1222] 4 3 2 2 3 5 2 3 5 5 3 5 4 2 3 2 2 2 2 5 5 4 3 1 4 4 4 4 4 4 5 2 2 4 5 5 5
+## [1259] 4 4 5 2 5 2 5 4 4 2 5 3 5 5 4 5 4 3 2 2 3 2 5 5 2 5 4 4 4 2 3 3 2 5 4 2 5
+## [1296] 3 3 4 2 2 4 5 2 5 5 3 3 4 3 5 3 4 4 5 5 3 4 4 3 5 3 4 2 5 4 4 4 4 4 3 3 5
+## [1333] 2 4 2 4 4 4 4 4 4 4 4 4 2 4 2 2 2 4 5 4 5 5 2 4 2 5 3 2 4 5 2 5 4 4 4 3 5
+## [1370] 2 5 2 5 3 4 3 4 5 4 4 4 2 3 3 3 3 2 2 4 1 4 4 2 5 5 2 2 3 4 2 1 1 2 2 4 4
+## [1407] 2 5 5 5 2 2 2 3 2 2 2 4 2 1 2 5 5 4 2 2 5 2 5 5 4 5 2 2 3 3 3 4 2 3 4 3 4
+## [1444] 2 3 3 4 4 5 4 4 2 5 3 2 2 3 3 2 2 5 2 4 4 5 5 5 4 5 5 2 2 4 4 3 3 3 3 2 2
+## [1481] 2 2 2 2 2 2 2 2 2 2 2 2 2 1 4 4 1 2 2 2 2 5 5 2 2 2 2 2 4 2 5 4 2 5 5 5 5
+## [1518] 4 2 4 4 2 5 5 5 4 4 2 5 5 2 4 2 3 4 4 4 4 4 5 4 5 4 2 2 4 4 2 5 2 4 4 5 4
+## [1555] 2 2 2 2 1 1 1 1 2 2 2 4 5 2 4 4 4 2 3 5 3 2 4 4 2 4 2 4 4 3 4 5 5 4 3 3 4
+## [1592] 4 4 4 5 5 4 5 4
 ## 
 ## Initial cluster prototypes:
 ##           fixed acidity volatile acidity citric acid residual sugar chlorides
-## Cluster 1          10.5             0.24        0.47            2.1     0.066
-## Cluster 2           7.7             0.54        0.26            1.9     0.089
-## Cluster 3           7.2             0.62        0.06            2.5     0.078
+## Cluster 1           8.9            0.595        0.41            7.9     0.086
+## Cluster 2           6.6            0.570        0.02            2.1     0.115
+## Cluster 3           8.2            0.640        0.27            2.0     0.095
+## Cluster 4           7.2            0.360        0.46            2.1     0.074
+## Cluster 5           7.2            0.410        0.30            2.1     0.083
 ##           free sulfur dioxide total sulfur dioxide density   pH sulphates
-## Cluster 1                   6                   24 0.99780 3.15      0.90
-## Cluster 2                  23                  147 0.99636 3.26      0.59
-## Cluster 3                  17                   84 0.99746 3.51      0.53
+## Cluster 1                  30                  109 0.99980 3.27      0.57
+## Cluster 2                   6                   16 0.99654 3.38      0.69
+## Cluster 3                   5                   77 0.99747 3.13      0.62
+## Cluster 4                  24                   44 0.99534 3.40      0.85
+## Cluster 5                  35                   72 0.99700 3.44      0.52
 ##           alcohol quality
-## Cluster 1    11.0       7
-## Cluster 2     9.7       5
-## Cluster 3     9.7       5
+## Cluster 1     9.3       5
+## Cluster 2     9.5       5
+## Cluster 3     9.1       6
+## Cluster 4    11.0       7
+## Cluster 5     9.4       5
 ## 
 ## Final cluster prototypes:
 ##           fixed acidity volatile acidity citric acid residual sugar  chlorides
-## Cluster 1      8.533181        0.5181678   0.2752403       2.384693 0.08442681
-## Cluster 2      7.923123        0.5641591   0.2810754       3.084972 0.08745041
-## Cluster 3      8.206881        0.5215515   0.2663896       2.472004 0.09188496
+## Cluster 1      8.111173        0.5630854   0.3220769       3.113951 0.08833649
+## Cluster 2      8.666728        0.5155081   0.2920574       2.434216 0.08550961
+## Cluster 3      7.821936        0.5829549   0.2498367       2.879001 0.08685610
+## Cluster 4      8.207523        0.5276560   0.2387213       2.322465 0.08650437
+## Cluster 5      8.143923        0.5173805   0.2705070       2.441825 0.09386082
 ##           free sulfur dioxide total sulfur dioxide   density       pH sulphates
-## Cluster 1            8.787981             21.91524 0.9966460 3.306099 0.6505909
-## Cluster 2           25.841448            109.03643 0.9969078 3.277954 0.6583179
-## Cluster 3           21.586258             55.45067 0.9968344 3.325372 0.6777269
-##            alcohol  quality
-## Cluster 1 10.59155 5.748142
-## Cluster 2 10.00014 5.284056
-## Cluster 3 10.34261 5.605126
+## Cluster 1           29.764935            132.43278 0.9971610 3.235318 0.7120772
+## Cluster 2            6.884509             17.23617 0.9966353 3.295084 0.6490544
+## Cluster 3           22.303909             91.44516 0.9968350 3.325858 0.6288155
+## Cluster 4           14.542174             36.82602 0.9967029 3.336375 0.6455753
+## Cluster 5           23.939370             59.46899 0.9968716 3.328914 0.6863725
+##             alcohol  quality
+## Cluster 1  9.774755 5.093139
+## Cluster 2 10.654625 5.748832
+## Cluster 3 10.111774 5.433166
+## Cluster 4 10.425196 5.696972
+## Cluster 5 10.309766 5.575234
 ## 
 ## Distance between the final cluster prototypes
-##           Cluster 1 Cluster 2
-## Cluster 2  7882.353          
-## Cluster 3  1288.619  2890.221
+##            Cluster 1  Cluster 2  Cluster 3  Cluster 4
+## Cluster 2 13795.7568                                 
+## Cluster 3  1736.0406  5746.0448                      
+## Cluster 4  9373.8315   442.6851  3044.1251           
+## Cluster 5  5358.6378  2074.9042  1025.5127   601.0607
 ## 
 ## Difference between the initial and final cluster prototypes
 ##           fixed acidity volatile acidity citric acid residual sugar
-## Cluster 1    -1.9668185       0.27816778 -0.19475974     0.28469289
-## Cluster 2     0.2231227       0.02415905  0.02107542     1.18497245
-## Cluster 3     1.0068812      -0.09844851  0.20638962    -0.02799602
+## Cluster 1    -0.7888272      -0.03191463 -0.08792311     -4.7860491
+## Cluster 2     2.0667284      -0.05449186  0.27205740      0.3342159
+## Cluster 3    -0.3780644      -0.05704505 -0.02016334      0.8790006
+## Cluster 4     1.0075233       0.16765600 -0.22127869      0.2224648
+## Cluster 5     0.9439232       0.10738053 -0.02949304      0.3418248
 ##              chlorides free sulfur dioxide total sulfur dioxide      density
-## Cluster 1  0.018426814            2.787981            -2.084762 -0.001153972
-## Cluster 2 -0.001549589            2.841448           -37.963570  0.000547791
-## Cluster 3  0.013884962            4.586258           -28.549329 -0.000625636
-##                    pH   sulphates    alcohol   quality
-## Cluster 1  0.15609929 -0.24940907 -0.4084528 -1.251858
-## Cluster 2  0.01795399  0.06831789  0.3001446  0.284056
-## Cluster 3 -0.18462785  0.14772690  0.6426127  0.605126
+## Cluster 1  0.002336485          -0.2350655            23.432778 -0.002638967
+## Cluster 2 -0.029490395           0.8845086             1.236174  0.000095276
+## Cluster 3 -0.008143902          17.3039088            14.445159 -0.000635005
+## Cluster 4  0.012504368          -9.4578264            -7.173983  0.001362907
+## Cluster 5  0.010860820         -11.0606303           -12.531014 -0.000128393
+##                    pH    sulphates    alcohol     quality
+## Cluster 1 -0.03468183  0.142077169  0.4747555  0.09313875
+## Cluster 2 -0.08491633 -0.040945568  1.1546252  0.74883232
+## Cluster 3  0.19585827  0.008815454  1.0117743 -0.56683423
+## Cluster 4 -0.06362530 -0.204424698 -0.5748037 -1.30302814
+## Cluster 5 -0.11108626  0.166372480  0.9097664  0.57523434
 ## 
-## Root Mean Squared Deviations (RMSD): 27.7305 
-## Mean Absolute Deviation (MAD): 354.7336 
+## Root Mean Squared Deviations (RMSD): 17.42253 
+## Mean Absolute Deviation (MAD): 285.8229 
 ## 
 ## Membership degrees matrix (top and bottom 5 rows): 
-##    Cluster 1  Cluster 2 Cluster 3
-## 1 0.77192535 0.02038834 0.2076863
-## 2 0.05547967 0.07208062 0.8724397
-## 3 0.04103146 0.01394749 0.9450211
-## 4 0.03209320 0.01962523 0.9482816
-## 5 0.77192535 0.02038834 0.2076863
+##     Cluster 1  Cluster 2   Cluster 3  Cluster 4  Cluster 5
+## 1 0.002059136 0.06844321 0.006029998 0.89819334 0.02527432
+## 2 0.011484466 0.01761281 0.081665364 0.04841328 0.84082408
+## 3 0.011245150 0.05046283 0.049195785 0.24177797 0.64731827
+## 4 0.008989636 0.02513874 0.047320279 0.08814917 0.83040217
+## 5 0.002059136 0.06844321 0.006029998 0.89819334 0.02527432
 ## ...
-##      Cluster 1  Cluster 2 Cluster 3
-## 1595 0.1828259 0.04419628 0.7729778
-## 1596 0.1457845 0.07256471 0.7816508
-## 1597 0.2746298 0.04255759 0.6828126
-## 1598 0.1833482 0.04438460 0.7722672
-## 1599 0.2790382 0.03037400 0.6905878
+##        Cluster 1  Cluster 2  Cluster 3 Cluster 4 Cluster 5
+## 1595 0.017487334 0.10113639 0.05830166 0.3794291 0.4436455
+## 1596 0.026306691 0.08117201 0.09213111 0.2197260 0.5806642
+## 1597 0.013919470 0.11747811 0.04415990 0.5332653 0.2911772
+## 1598 0.017545074 0.10134779 0.05847719 0.3792782 0.4433518
+## 1599 0.004516323 0.05042296 0.01522923 0.8215353 0.1082961
 ## 
 ## Descriptive statistics for the membership degrees by clusters
 ##           Size       Min        Q1      Mean    Median        Q3       Max
-## Cluster 1  814 0.4755405 0.8917986 0.8987829 0.9457399 0.9747817 0.9991842
-## Cluster 2  241 0.4355536 0.6615469 0.7882717 0.8212492 0.9200656 0.9985529
-## Cluster 3  544 0.4732657 0.6836001 0.7817728 0.8059082 0.9038469 0.9951640
+## Cluster 1   81 0.3566488 0.6983723 0.7836378 0.8383926 0.9135432 0.9964588
+## Cluster 2  543 0.4728023 0.8324747 0.8631094 0.9133480 0.9550126 0.9950462
+## Cluster 3  191 0.3598101 0.5631595 0.7298961 0.7722294 0.8658661 0.9940375
+## Cluster 4  464 0.4205281 0.5897926 0.7306091 0.7378001 0.8720060 0.9901855
+## Cluster 5  320 0.3455386 0.5549501 0.6915114 0.6836992 0.8166995 0.9975386
 ## 
 ## Dunn&#39;s Fuzziness Coefficients:
 ## dunn_coeff normalized 
-##  0.7652837  0.6479256 
+##  0.6660324  0.5825405 
 ## 
 ## Within cluster sum of squares by cluster:
-##         1         2         3 
-##  79982.44 193638.53 122693.56 
-## (between_SS / total_SS =  79.75%) 
+##        1        2        3        4        5 
+## 71336.89 24932.46 41489.93 37075.86 49276.20 
+## (between_SS / total_SS =  87.95%) 
 ## 
 ## Available components: 
 ##  [1] &quot;u&quot;          &quot;v&quot;          &quot;v0&quot;         &quot;d&quot;          &quot;x&quot;         
@@ -530,147 +557,169 @@ text-align: justify}
 </div>
 <div id="run-fcm-with-multiple-starts" class="section level2">
 <h2>Run FCM with Multiple Starts</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ppclust)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>res.fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(data_wine, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">5</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>func.val</span></code></pre></div>
-<pre><code>## [1] 274402 274402 274402 274402 274402</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>iter</span></code></pre></div>
-<pre><code>## [1] 91 74 89 89 90</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>best.start</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ppclust)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>res.fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(data_wine, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">5</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>func.val</span></code></pre></div>
+<pre><code>## [1] 128957.6 128957.6 128957.6 128957.6 128957.6</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>iter</span></code></pre></div>
+<pre><code>## [1] 149 146 127 145 143</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>res.fcm<span class="sc">$</span>best.start</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res.fcm)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res.fcm)</span></code></pre></div>
 <pre><code>## Summary for &#39;res.fcm&#39;
 ## 
 ## Number of data objects:  1599 
 ## 
-## Number of clusters:  3 
+## Number of clusters:  5 
 ## 
 ## Crisp clustering vector:
-##    [1] 1 2 2 2 1 2 2 1 1 3 2 3 2 1 3 3 3 2 1 2 2 2 1 2 2 1 1 1 1 1 2 2 3 3 2 1 1
-##   [38] 1 1 3 3 2 1 1 1 2 3 1 1 3 1 1 1 3 2 2 1 3 2 2 2 3 1 2 1 1 1 1 2 1 1 3 3 2
-##   [75] 3 2 2 1 2 3 1 2 2 2 2 2 3 1 3 1 3 3 3 1 3 3 1 1 1 1 2 1 1 2 1 2 2 2 2 3 2
-##  [112] 3 3 2 2 2 1 1 2 3 3 2 1 1 3 3 1 1 1 1 3 3 3 1 1 2 2 2 3 3 2 2 2 1 2 3 3 3
-##  [149] 1 2 1 2 3 3 3 3 3 3 1 3 1 1 1 3 3 3 3 2 2 2 1 1 1 2 1 2 1 1 1 2 2 3 2 2 2
-##  [186] 3 2 1 3 3 3 2 3 1 1 3 2 1 3 1 1 3 2 2 1 1 1 3 3 1 1 2 1 2 2 3 2 2 2 3 2 2
-##  [223] 1 1 2 2 2 1 2 1 3 2 2 1 1 1 1 2 1 1 2 1 3 1 1 1 2 2 1 1 1 1 1 3 1 3 1 2 2
-##  [260] 1 2 2 1 2 1 1 2 1 1 1 2 1 2 1 3 2 1 1 1 2 1 1 2 2 2 2 2 2 2 3 2 1 2 1 2 1
-##  [297] 2 1 1 1 2 1 1 1 3 1 2 1 1 1 1 3 3 3 2 2 3 2 2 2 2 3 1 2 2 2 1 1 1 1 2 2 3
-##  [334] 2 1 1 1 2 3 1 1 1 1 1 1 2 1 1 2 1 1 1 1 2 3 1 2 1 1 2 2 2 1 1 2 1 2 1 2 1
-##  [371] 2 1 2 2 2 1 2 1 1 2 1 2 1 1 2 1 2 2 2 2 3 2 1 3 1 1 3 2 2 2 3 2 2 2 1 1 1
-##  [408] 1 1 2 3 2 2 1 3 3 1 3 1 2 2 2 2 1 2 2 2 1 1 1 1 2 1 1 2 1 2 1 2 2 1 1 2 1
-##  [445] 1 1 2 1 1 1 1 1 1 1 2 1 1 2 1 2 1 1 1 3 1 1 2 1 1 2 2 2 2 1 1 1 1 1 1 1 1
-##  [482] 1 1 1 1 1 1 1 2 1 2 1 1 2 3 1 1 3 1 2 1 2 2 1 1 1 1 1 2 2 2 2 2 1 1 3 1 1
-##  [519] 1 3 1 2 3 3 3 2 3 3 2 1 1 2 2 1 1 1 1 1 1 1 2 1 1 2 1 3 1 1 2 1 1 2 2 3 1
-##  [556] 1 1 1 1 2 1 3 3 2 2 1 1 1 1 2 1 2 1 2 2 2 1 3 3 2 1 1 1 1 3 1 2 3 2 1 2 3
-##  [593] 2 2 2 3 1 1 1 1 1 1 1 1 2 1 1 2 2 2 2 1 1 1 3 2 2 1 1 1 3 3 1 2 2 2 1 1 1
-##  [630] 3 1 1 2 3 3 1 3 3 1 2 2 2 2 2 2 1 1 1 1 3 1 3 2 1 1 2 1 2 1 1 1 2 1 1 2 2
-##  [667] 1 1 1 1 2 1 3 1 1 1 1 1 3 2 2 1 2 1 3 1 2 1 1 1 1 3 2 3 3 2 1 1 2 1 3 1 1
-##  [704] 3 1 2 1 1 1 1 3 3 1 2 2 1 2 2 1 2 1 3 2 3 1 1 2 1 1 2 1 1 1 2 1 1 1 2 3 2
-##  [741] 1 3 1 3 3 1 2 2 1 1 2 2 2 2 1 2 1 1 1 3 3 1 1 1 2 2 2 3 3 1 3 3 3 1 2 1 2
-##  [778] 1 1 3 2 1 3 1 3 2 2 2 2 3 2 3 3 1 1 2 2 2 1 1 3 1 3 2 1 1 1 1 1 1 1 1 2 1
-##  [815] 2 2 1 1 2 2 1 2 1 1 1 1 1 1 2 1 1 1 2 2 1 2 3 3 1 1 1 1 2 3 2 1 1 1 1 1 1
-##  [852] 1 3 2 2 1 2 2 1 1 3 3 1 3 3 3 1 1 1 2 2 2 2 1 1 1 1 2 2 3 1 2 1 3 2 1 1 2
-##  [889] 2 3 2 3 1 3 3 2 2 2 2 1 1 1 1 1 1 3 2 1 2 1 1 1 1 1 1 1 2 2 2 2 1 2 2 2 1
-##  [926] 2 2 2 1 1 1 1 2 1 1 2 2 1 2 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 2 1
-##  [963] 1 1 2 2 1 3 2 1 1 1 1 1 1 2 2 3 1 1 1 1 2 1 1 1 1 2 1 1 1 2 2 2 3 2 1 1 1
-## [1000] 1 1 2 1 1 2 1 1 1 1 2 1 1 1 1 1 1 1 3 3 1 1 1 1 1 1 2 1 2 2 1 1 1 1 1 2 1
-## [1037] 2 2 2 2 1 1 2 2 2 2 2 2 1 1 2 2 1 1 2 2 1 3 2 1 1 1 1 1 1 1 1 1 1 2 1 3 2
-## [1074] 1 3 2 1 1 1 3 1 3 2 2 2 2 1 1 2 2 2 1 1 1 1 1 1 1 1 1 2 1 1 1 1 2 1 1 1 2
-## [1111] 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 2 3 2 1 3 2 1 1 2 1 1 3 3 2 2 1 1 2 2 1
-## [1148] 1 1 1 1 2 1 1 2 1 3 3 2 1 1 1 1 1 1 1 2 2 2 1 1 2 1 2 2 2 2 1 2 2 2 1 2 2
-## [1185] 3 1 1 1 3 1 1 1 2 1 2 2 3 1 2 3 1 1 1 2 2 2 2 2 2 1 1 2 1 1 1 1 2 2 1 2 2
-## [1222] 2 3 1 1 2 2 1 3 2 2 3 2 1 1 3 1 1 1 1 2 2 2 3 3 1 2 1 1 2 2 2 1 1 1 2 2 2
-## [1259] 1 1 2 1 2 1 2 1 1 1 2 3 2 2 2 2 1 2 1 1 2 1 2 2 1 2 1 2 1 1 3 3 1 2 1 1 2
-## [1296] 2 2 1 1 1 1 2 1 2 2 3 3 1 3 2 3 1 2 2 2 3 2 2 3 2 3 2 1 2 1 1 1 1 1 3 3 2
-## [1333] 1 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 1 1 2 3 1 1 2 1 2 1 2 2 3 2
-## [1370] 1 2 1 2 3 1 3 1 2 1 1 1 1 3 3 3 3 1 1 2 3 1 1 1 2 2 1 1 3 1 1 3 3 1 1 2 1
-## [1407] 1 2 2 2 1 1 1 3 1 1 1 2 1 3 1 2 2 1 1 1 2 1 2 2 2 2 1 1 3 3 3 2 1 3 1 3 1
-## [1444] 1 3 3 1 2 2 1 1 1 2 3 1 1 3 3 1 1 2 1 1 1 2 2 2 1 2 2 1 1 2 2 3 3 3 3 1 1
-## [1481] 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 3 1 1 1 1 2 2 1 1 1 1 1 1 1 2 1 1 2 2 2 2
-## [1518] 2 1 1 2 1 2 2 2 1 2 1 2 2 1 1 1 3 1 1 2 1 1 2 1 2 2 1 1 1 1 1 2 1 1 1 2 1
-## [1555] 1 1 1 1 3 3 3 3 1 1 1 2 2 1 2 1 1 1 3 2 3 1 1 1 1 1 1 1 1 3 1 2 2 1 3 2 2
-## [1592] 1 2 2 2 2 2 2 2
+##    [1] 1 2 2 2 1 1 2 3 3 5 2 5 2 1 4 4 5 2 1 2 2 2 1 2 1 3 3 1 1 3 5 1 5 5 1 3 3
+##   [38] 1 3 5 5 1 3 3 3 2 4 1 3 5 3 3 3 4 2 1 3 4 2 1 2 5 1 2 3 3 1 3 2 3 1 5 5 1
+##   [75] 5 1 1 1 5 4 3 2 2 2 2 1 4 1 4 3 4 4 4 1 5 5 3 3 3 1 1 3 1 2 1 2 2 2 5 4 1
+##  [112] 5 5 1 1 2 1 3 2 5 5 2 3 1 5 5 3 3 3 3 4 5 5 1 1 2 2 1 5 5 2 2 2 3 2 4 5 5
+##  [149] 1 1 3 2 5 5 4 4 4 4 3 5 3 3 1 4 4 5 5 1 1 2 3 3 3 1 1 2 1 1 3 1 1 5 1 2 2
+##  [186] 5 2 3 4 4 4 2 4 3 3 4 2 1 5 1 3 4 1 1 1 1 1 4 5 3 3 2 3 2 1 4 1 1 1 4 2 2
+##  [223] 3 3 2 2 5 3 2 1 5 1 2 1 1 1 1 1 1 1 2 3 5 3 3 3 2 2 1 3 1 1 3 5 1 4 3 2 1
+##  [260] 1 1 2 1 2 3 3 2 1 3 3 2 3 2 1 5 2 3 3 3 1 3 3 2 1 2 2 2 2 2 5 2 3 1 3 2 3
+##  [297] 2 1 1 1 1 3 1 3 5 3 2 3 3 1 3 5 5 4 2 2 5 2 2 2 2 5 3 2 1 1 3 3 3 3 1 1 4
+##  [334] 1 1 3 3 2 5 1 3 3 3 3 1 2 1 3 1 1 1 3 3 5 4 1 2 1 3 1 5 2 1 3 1 3 1 3 2 3
+##  [371] 2 3 2 2 1 3 1 3 3 2 1 1 1 1 2 1 2 1 2 1 5 1 3 5 3 1 4 1 1 1 4 1 2 1 1 3 1
+##  [408] 1 3 2 5 5 5 3 4 4 3 4 3 2 2 2 2 3 2 2 1 1 1 1 3 2 3 3 2 3 2 3 2 1 1 3 1 3
+##  [445] 3 1 2 3 3 1 1 3 1 3 2 3 3 2 3 1 3 3 3 4 3 3 2 3 3 2 1 2 2 3 3 3 3 3 3 1 3
+##  [482] 3 3 3 3 3 3 3 2 3 2 3 1 5 5 3 1 4 3 5 1 2 2 3 3 3 3 3 2 1 1 2 1 3 3 4 3 3
+##  [519] 1 5 1 1 4 4 4 2 5 5 2 1 3 1 1 1 1 3 1 3 1 3 1 3 3 2 3 5 1 3 2 3 3 1 1 5 3
+##  [556] 3 3 3 3 1 3 4 4 2 1 3 3 3 3 1 1 1 1 1 5 2 3 5 5 1 3 3 3 3 5 1 1 5 2 3 2 4
+##  [593] 2 1 1 5 3 3 1 3 3 1 3 1 2 3 3 2 2 1 2 3 1 1 5 2 2 1 3 3 5 5 1 1 2 2 3 3 1
+##  [630] 5 1 3 1 5 5 1 4 4 3 2 1 2 1 2 1 3 3 3 1 4 1 4 2 1 1 2 1 1 3 3 3 1 3 3 2 2
+##  [667] 3 3 1 3 2 3 4 3 3 1 3 1 5 2 1 1 2 3 4 3 1 1 3 3 3 5 2 4 4 1 3 3 2 3 5 3 3
+##  [704] 5 3 2 3 1 1 1 5 5 1 1 5 1 1 1 3 1 3 5 1 4 3 3 2 3 3 2 1 3 3 2 1 3 3 2 5 1
+##  [741] 3 4 3 5 5 1 2 2 1 1 1 1 2 1 1 1 1 1 1 5 5 1 3 1 1 1 2 5 5 1 5 4 4 1 1 3 1
+##  [778] 3 1 5 1 1 5 1 5 2 2 2 2 4 5 4 5 3 3 2 2 1 3 3 5 3 5 1 3 3 3 3 3 3 3 3 1 3
+##  [815] 1 1 1 1 1 2 3 1 1 1 3 1 3 1 2 3 3 3 2 2 3 2 5 5 1 3 1 1 2 5 1 1 1 1 1 1 3
+##  [852] 3 4 2 2 3 2 1 1 3 5 5 3 5 5 5 3 3 3 1 1 2 2 3 3 3 3 1 2 5 3 1 1 5 2 1 3 2
+##  [889] 2 5 2 5 3 5 5 1 1 1 1 3 1 1 1 3 3 4 5 3 2 3 3 3 3 3 3 3 2 1 5 2 3 5 2 1 1
+##  [926] 2 2 5 1 3 3 1 2 1 3 2 2 3 1 3 3 3 2 1 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 1 1 3
+##  [963] 3 1 1 2 3 4 2 3 3 3 3 3 3 2 2 4 1 3 3 1 2 3 3 3 3 2 1 3 1 2 2 2 5 1 3 3 3
+## [1000] 3 3 2 1 3 2 3 1 3 3 2 3 3 1 1 3 1 1 5 5 3 3 3 3 3 3 1 1 2 2 3 3 3 3 1 1 3
+## [1037] 1 2 1 1 1 3 1 1 2 1 2 2 3 3 2 1 1 3 5 5 3 5 2 3 3 3 3 3 3 3 3 3 3 2 1 5 2
+## [1074] 1 5 2 3 3 3 4 3 4 2 2 2 2 3 1 1 1 2 3 3 1 3 3 3 3 3 3 1 3 1 3 1 1 3 3 3 2
+## [1111] 3 2 1 3 5 3 3 3 3 3 3 1 1 1 3 1 3 2 5 2 3 4 1 3 3 2 3 3 5 5 5 2 3 3 2 2 3
+## [1148] 3 3 3 3 2 1 1 2 1 5 5 2 1 3 3 3 3 3 1 2 2 1 3 3 1 3 2 2 2 2 3 5 1 1 3 2 2
+## [1185] 4 1 3 1 4 3 3 3 1 3 2 2 5 3 5 5 3 3 3 5 1 1 1 2 1 3 3 2 3 3 3 1 5 2 3 2 1
+## [1222] 1 5 3 3 5 2 3 5 2 2 5 2 1 3 5 3 3 3 3 2 2 1 5 4 1 1 1 1 1 1 2 3 3 1 2 2 2
+## [1259] 1 1 2 3 2 3 2 1 1 3 2 5 2 2 1 2 1 5 3 3 5 3 2 2 3 2 1 1 1 3 5 5 3 2 1 3 2
+## [1296] 5 5 1 3 3 1 2 3 2 2 5 5 1 5 2 5 1 1 2 2 5 1 1 5 2 5 1 3 2 1 1 1 1 1 5 5 2
+## [1333] 3 1 3 1 1 1 1 1 1 1 1 1 3 1 3 3 3 1 2 1 2 2 3 1 3 2 5 3 1 2 3 2 1 1 1 5 2
+## [1370] 3 2 3 2 5 1 5 1 2 1 1 1 3 5 5 5 5 3 3 1 4 1 1 3 2 2 3 3 5 1 3 4 4 3 3 1 1
+## [1407] 3 2 2 2 3 3 3 5 3 3 3 1 3 4 3 2 2 1 3 3 2 3 2 2 1 2 3 3 5 5 5 1 3 5 1 5 1
+## [1444] 3 5 5 1 1 2 1 1 3 2 5 3 3 5 5 3 3 2 3 1 1 2 2 2 1 2 2 3 3 1 1 5 5 5 5 3 3
+## [1481] 3 3 3 3 3 3 3 3 3 3 3 3 3 4 1 1 4 3 3 3 3 2 2 3 3 3 3 3 1 3 2 1 3 2 2 2 2
+## [1518] 1 3 1 1 3 2 2 2 1 1 3 2 2 3 1 3 5 1 1 1 1 1 2 1 2 1 3 3 1 1 3 2 3 1 1 2 1
+## [1555] 3 3 3 3 4 4 4 4 3 3 3 1 2 3 1 1 1 3 5 2 5 3 1 1 3 1 3 1 1 5 1 2 2 1 5 5 1
+## [1592] 1 1 1 2 2 1 2 1
 ## 
 ## Initial cluster prototypes:
 ##           fixed acidity volatile acidity citric acid residual sugar chlorides
-## Cluster 1           7.4            0.610        0.01            2.0     0.074
-## Cluster 2           7.3            0.305        0.39            1.2     0.059
-## Cluster 3           8.4            0.360        0.32            2.2     0.081
+## Cluster 1          10.7            0.460        0.39            2.0     0.061
+## Cluster 2           7.4            0.785        0.19            5.2     0.094
+## Cluster 3           6.9            0.630        0.33            6.7     0.235
+## Cluster 4           9.5            0.460        0.24            2.7     0.092
+## Cluster 5           6.6            0.855        0.02            2.4     0.062
 ##           free sulfur dioxide total sulfur dioxide density   pH sulphates
-## Cluster 1                  13                   38 0.99748 3.48      0.65
-## Cluster 2                   7                   11 0.99331 3.29      0.52
-## Cluster 3                  32                   79 0.99640 3.30      0.72
-##           alcohol quality
-## Cluster 1     9.8       5
-## Cluster 2    11.5       6
-## Cluster 3    11.0       6
+## Cluster 1                   7                   15 0.99810 3.18      0.62
+## Cluster 2                  19                   98 0.99713 3.16      0.52
+## Cluster 3                  66                  115 0.99787 3.22      0.56
+## Cluster 4                  14                   44 0.99800 3.12      0.74
+## Cluster 5                  15                   23 0.99627 3.54      0.60
+##             alcohol quality
+## Cluster 1  9.500000       5
+## Cluster 2  9.566667       6
+## Cluster 3  9.500000       5
+## Cluster 4 10.000000       6
+## Cluster 5 11.000000       6
 ## 
 ## Final cluster prototypes:
 ##           fixed acidity volatile acidity citric acid residual sugar  chlorides
-## Cluster 1      8.533181        0.5181678   0.2752403       2.384693 0.08442681
-## Cluster 2      8.206881        0.5215515   0.2663896       2.472004 0.09188496
-## Cluster 3      7.923123        0.5641591   0.2810754       3.084972 0.08745041
+## Cluster 1      8.207523        0.5276560   0.2387213       2.322465 0.08650437
+## Cluster 2      8.143923        0.5173805   0.2705070       2.441825 0.09386082
+## Cluster 3      8.666728        0.5155081   0.2920574       2.434216 0.08550961
+## Cluster 4      8.111173        0.5630854   0.3220769       3.113951 0.08833649
+## Cluster 5      7.821936        0.5829549   0.2498367       2.879001 0.08685610
 ##           free sulfur dioxide total sulfur dioxide   density       pH sulphates
-## Cluster 1            8.787981             21.91524 0.9966460 3.306099 0.6505909
-## Cluster 2           21.586258             55.45067 0.9968344 3.325372 0.6777269
-## Cluster 3           25.841448            109.03643 0.9969078 3.277954 0.6583179
-##            alcohol  quality
-## Cluster 1 10.59155 5.748142
-## Cluster 2 10.34261 5.605126
-## Cluster 3 10.00014 5.284056
+## Cluster 1           14.542174             36.82602 0.9967029 3.336375 0.6455753
+## Cluster 2           23.939370             59.46899 0.9968716 3.328914 0.6863725
+## Cluster 3            6.884509             17.23617 0.9966353 3.295084 0.6490544
+## Cluster 4           29.764935            132.43278 0.9971610 3.235318 0.7120772
+## Cluster 5           22.303909             91.44516 0.9968350 3.325858 0.6288155
+##             alcohol  quality
+## Cluster 1 10.425196 5.696972
+## Cluster 2 10.309766 5.575234
+## Cluster 3 10.654625 5.748832
+## Cluster 4  9.774755 5.093139
+## Cluster 5 10.111774 5.433166
 ## 
 ## Distance between the final cluster prototypes
-##           Cluster 1 Cluster 2
-## Cluster 2  1288.619          
-## Cluster 3  7882.353  2890.221
+##            Cluster 1  Cluster 2  Cluster 3  Cluster 4
+## Cluster 2   601.0607                                 
+## Cluster 3   442.6851  2074.9042                      
+## Cluster 4  9373.8315  5358.6378 13795.7568           
+## Cluster 5  3044.1251  1025.5127  5746.0448  1736.0406
 ## 
 ## Difference between the initial and final cluster prototypes
-##           fixed acidity volatile acidity citric acid residual sugar   chlorides
-## Cluster 1     1.1331815      -0.09183222  0.26524026      0.3846929 0.010426814
-## Cluster 2     0.9068812       0.21655149 -0.12361037      1.2720040 0.032884962
-## Cluster 3    -0.4768773       0.20415905 -0.03892458      0.8849724 0.006450411
-##           free sulfur dioxide total sulfur dioxide      density          pH
-## Cluster 1           -4.212019            -16.08476 -0.000833972 -0.17390071
-## Cluster 2           14.586258             44.45067  0.003524364  0.03537215
-## Cluster 3           -6.158552             30.03643  0.000507791 -0.02204601
-##              sulphates    alcohol    quality
-## Cluster 1  0.000590926  0.7915472  0.7481419
-## Cluster 2  0.157726899 -1.1573873 -0.3948740
-## Cluster 3 -0.061682106 -0.9998554 -0.7159440
+##           fixed acidity volatile acidity citric acid residual sugar
+## Cluster 1    -2.4924767       0.06765599 -0.15127869      0.3224648
+## Cluster 2     0.7439232      -0.26761947  0.08050696     -2.7581752
+## Cluster 3     1.7667284      -0.11449186 -0.03794260     -4.2657841
+## Cluster 4    -1.3888272       0.10308537  0.08207689      0.4139509
+## Cluster 5     1.2219356      -0.27204505  0.22983666      0.4790006
+##              chlorides free sulfur dioxide total sulfur dioxide      density
+## Cluster 1  0.025504368            7.542174             21.82602 -0.001397093
+## Cluster 2 -0.000139180            4.939370            -38.53101 -0.000258393
+## Cluster 3 -0.149490395          -59.115491            -97.76383 -0.001234724
+## Cluster 4 -0.003663515           15.764935             88.43278 -0.000838967
+## Cluster 5  0.024856098            7.303909             68.44516  0.000564995
+##                    pH   sulphates    alcohol    quality
+## Cluster 1  0.15637470  0.02557530  0.9251963  0.6969719
+## Cluster 2  0.16891374  0.16637248  0.7430998 -0.4247657
+## Cluster 3  0.07508367  0.08905443  1.1546252  0.7488323
+## Cluster 4  0.11531817 -0.02792283 -0.2252445 -0.9068613
+## Cluster 5 -0.21414173  0.02881545 -0.8882257 -0.5668342
 ## 
-## Root Mean Squared Deviations (RMSD): 33.73682 
-## Mean Absolute Deviation (MAD): 507.3653 
+## Root Mean Squared Deviations (RMSD): 74.76322 
+## Mean Absolute Deviation (MAD): 1045.154 
 ## 
 ## Membership degrees matrix (top and bottom 5 rows): 
-##    Cluster 1 Cluster 2  Cluster 3
-## 1 0.77192535 0.2076863 0.02038834
-## 2 0.05547967 0.8724397 0.07208062
-## 3 0.04103146 0.9450211 0.01394749
-## 4 0.03209320 0.9482816 0.01962523
-## 5 0.77192535 0.2076863 0.02038834
+##    Cluster 1  Cluster 2  Cluster 3   Cluster 4   Cluster 5
+## 1 0.89819334 0.02527432 0.06844321 0.002059136 0.006029998
+## 2 0.04841328 0.84082408 0.01761281 0.011484466 0.081665364
+## 3 0.24177797 0.64731827 0.05046283 0.011245150 0.049195785
+## 4 0.08814917 0.83040217 0.02513874 0.008989636 0.047320279
+## 5 0.89819334 0.02527432 0.06844321 0.002059136 0.006029998
 ## ...
-##      Cluster 1 Cluster 2  Cluster 3
-## 1595 0.1828259 0.7729778 0.04419628
-## 1596 0.1457845 0.7816508 0.07256471
-## 1597 0.2746298 0.6828126 0.04255759
-## 1598 0.1833482 0.7722672 0.04438460
-## 1599 0.2790382 0.6905878 0.03037400
+##      Cluster 1 Cluster 2  Cluster 3   Cluster 4  Cluster 5
+## 1595 0.3794291 0.4436455 0.10113639 0.017487334 0.05830166
+## 1596 0.2197260 0.5806642 0.08117201 0.026306691 0.09213111
+## 1597 0.5332653 0.2911772 0.11747811 0.013919470 0.04415990
+## 1598 0.3792782 0.4433518 0.10134779 0.017545074 0.05847719
+## 1599 0.8215353 0.1082961 0.05042296 0.004516323 0.01522923
 ## 
 ## Descriptive statistics for the membership degrees by clusters
 ##           Size       Min        Q1      Mean    Median        Q3       Max
-## Cluster 1  814 0.4755405 0.8917986 0.8987829 0.9457399 0.9747817 0.9991842
-## Cluster 2  544 0.4732657 0.6836001 0.7817728 0.8059082 0.9038469 0.9951640
-## Cluster 3  241 0.4355536 0.6615469 0.7882717 0.8212492 0.9200656 0.9985529
+## Cluster 1  464 0.4205281 0.5897926 0.7306091 0.7378001 0.8720060 0.9901855
+## Cluster 2  320 0.3455386 0.5549501 0.6915114 0.6836992 0.8166995 0.9975386
+## Cluster 3  543 0.4728023 0.8324747 0.8631094 0.9133480 0.9550126 0.9950462
+## Cluster 4   81 0.3566488 0.6983723 0.7836378 0.8383926 0.9135432 0.9964588
+## Cluster 5  191 0.3598101 0.5631595 0.7298961 0.7722294 0.8658661 0.9940375
 ## 
 ## Dunn&#39;s Fuzziness Coefficients:
 ## dunn_coeff normalized 
-##  0.7652837  0.6479256 
+##  0.6660324  0.5825405 
 ## 
 ## Within cluster sum of squares by cluster:
-##         1         2         3 
-##  79982.44 122693.56 193638.53 
-## (between_SS / total_SS =  79.75%) 
+##        1        2        3        4        5 
+## 37075.86 49276.20 24932.46 71336.89 41489.93 
+## (between_SS / total_SS =  87.95%) 
 ## 
 ## Available components: 
 ##  [1] &quot;u&quot;          &quot;v&quot;          &quot;v0&quot;         &quot;d&quot;          &quot;x&quot;         
@@ -678,12 +727,10 @@ text-align: justify}
 ## [11] &quot;iter&quot;       &quot;best.start&quot; &quot;func.val&quot;   &quot;comp.time&quot;  &quot;inpargs&quot;   
 ## [16] &quot;algorithm&quot;  &quot;call&quot;</code></pre>
 </div>
-<div id="cluster-plot" class="section level2">
-<h2>Cluster Plot</h2>
-<p>Cluster plot menggunakan pairwise scatter plots</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (ppclust)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>res.fcm3 <span class="ot">&lt;-</span> <span class="fu">ppclust2</span>(res.fcm, <span class="st">&quot;fanny&quot;</span>)</span></code></pre></div>
 </div>
+<div id="referensi" class="section level1">
+<h1>Referensi</h1>
+<p><a href="https://rpubs.com/rahulSaha/Fuzzy-CMeansClustering" class="uri">https://rpubs.com/rahulSaha/Fuzzy-CMeansClustering</a> <a href="https://algoritmaonline.com/fuzzy-clustering/" class="uri">https://algoritmaonline.com/fuzzy-clustering/</a> <a href="https://algotech.netlify.app/blog/fuzzy-clustering/" class="uri">https://algotech.netlify.app/blog/fuzzy-clustering/</a></p>
 </div>
 </div>
 
