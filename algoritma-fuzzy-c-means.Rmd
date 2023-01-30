@@ -1,0 +1,164 @@
+---
+title: "Algoritma Fuzzy C-Means dengan R"
+date: "`r Sys.Date()`"
+author: SalmaaShafira-Institut Teknologi Statistika dan Bisnis Muhammadiyah
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+bibliography: references.bib
+---
+
+```{=html}
+<style>
+body{
+text-align: justify}
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Algoritma
+
+## Introduction
+Clustering merupakan salah satu metode machine learning dan termasuk dalam unsupervised learning. Dalam unsupervised learning lebih fokus dalam melakukan eksplorasi data seperti mencari pola dalam data. Clustering sendiri bertujuan mencari pola data yang mirip sehingga memiliki kemungkinan dalam mengelompokkan data-data yang mirip tersebut.
+
+## Fuzzy C-means clustering
+Fuzzy c-means merupakan salah satu jenis soft clustering di mana dalam mengelompokan suatu data, setiap data bisa dimiliki lebih dari satu cluster.
+
+Cara kerja dari fuzzy c-means clustering dalam mengelompokkan datanya adalah sebagai berikut :
+
+1. Menentukan banyak cluster (k) yang akan dibuat.
+2. Menentukan nilai proporsi untuk setiap data poin secara random untuk masuk dalam suatu cluster.
+3. Menghitung nilai centroid. Dalam menghitung nilai centroid
+
+
+objek data adalah anggota dari semua cluster dengan derajat keanggotaan fuzzy yang bervariasi antara 0 dan 1 dalam FCM. Oleh karena itu, objek data yang lebih dekat ke pusat cluster memiliki derajat keanggotaan yang lebih tinggi daripada objek yang tersebar di batas cluster.
+
+
+# Tahapan Algoritma Fuzzy C-means
+
+### 1. Siapkan data set yang digunakan
+Pada tahapan ini menggunakan data set Wine Quality.
+
+### 2. Melakukan INISIALISASI:
+	- Menentukan jumlah cluster ( k>= 1)
+	- Menentukan bobot pangkat (w > 1)
+	- Menentukan jumlah maksimal iterasi 
+	- Menentukan threshold perubahan fungsi obyektif.
+	
+### 3. Berikan nilai keanggotaan setiap data pada cluster secara acak.
+Dengan syarat jumlah nilai pada keseluruhan cluster bernilai = 1
+
+\begin{equation}\sum_{i=1}^k U i j=1\end{equation}
+
+### 4. Menghitung nilai centroid. 
+Dalam menghitung nilai centroid, kita menggunakan formula berikut :
+
+\begin{equation}C_j=\frac{\sum u_{i j}^m x}{\sum u_{i j}^m}\end{equation}
+
+### 5. Menghitung kembali nilai proporsi untuk setiap data poin untuk masuk pada setiap cluster.
+Formula yang digunakan yaitu sebagai berikut :
+
+\begin{equation}u_{i j}^m=\frac{1}{\sum\left(\frac{\left|x_i-c_j\right|}{\left|x_i-c_k\right|}\right)^{\frac{2}{m-1}}}\end{equation}
+
+
+# Eksperimen Algoritma Fuzzy C-means
+
+## library
+Sebelum memasukkan data, kita perlu memanggil library terlebih dahulu dan meng install beberapa packages yang tidak tersedia.
+
+```{r warning=FALSE, eval=FALSE}
+library(ppclust)
+library(factoextra)
+library(dplyr)
+library(cluster)
+library(fclust)
+```
+
+## Input Data set
+Tahap ini digunakan untuk memanggil data set yang ingin digunakan pada algoritma Fuzzy c-means. Pada kali ini menggunakan data set Wine Quality.
+
+```{r warning=FALSE}
+library (readxl)
+data <- read_excel("D:/MATKUL SMST 3/DATA MINING/algoritma-Fuzzy-C-Means/WINEQUality-red.xlsx")
+```
+
+Memanggil dan menampilkan data set. Karena dari data wine ini mempunyai banyak data maka kita tampilkan n=10
+
+```{r warning=FALSE}
+data
+data_wine = data
+head (data_wine,n=10)
+```
+
+### Mengetahui Korelari antar variabel
+Menampilkan Korelasi data wine 4 baris pertama
+```{r warning=FALSE}
+cor(data_wine [,1:4])
+```
+
+```{r eval=FALSE}
+library(psych)
+```
+
+## Inisialisasi Data
+
+Memanggil data dengan menentukan nilai cetroid, dengan pembagian K=5
+
+```{r}
+library(ppclust)
+res.fcm <- fcm(data_wine, centers=5)
+```
+
+```{r}
+as.data.frame(res.fcm$u)[1:10,]
+```
+
+## Inisial Cluster awal (matriks prototype)
+
+```{r}
+res.fcm$v0
+```
+
+```{r}
+res.fcm$v
+```
+
+```{r}
+summary(res.fcm)
+```
+
+## Run FCM with Multiple Starts
+
+```{r WARNING = FALSE}
+
+library(ppclust)
+res.fcm <- fcm(data_wine, centers=5, nstart=5)
+
+res.fcm$func.val
+```
+
+```{r}
+res.fcm$iter
+```
+
+```{r WARNING = FALSE}
+res.fcm$best.start
+```
+
+```{r}
+summary(res.fcm)
+```
+
+
+# Referensi
+<https://rpubs.com/rahulSaha/Fuzzy-CMeansClustering>
+<https://algoritmaonline.com/fuzzy-clustering/>
+<https://algotech.netlify.app/blog/fuzzy-clustering/>
+<https://github.com/Salmaashafira?tab=repositories>
+
