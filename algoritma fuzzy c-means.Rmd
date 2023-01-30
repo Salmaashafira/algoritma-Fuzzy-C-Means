@@ -160,4 +160,5 @@ summary(res.fcm)
 <https://rpubs.com/rahulSaha/Fuzzy-CMeansClustering>
 <https://algoritmaonline.com/fuzzy-clustering/>
 <https://algotech.netlify.app/blog/fuzzy-clustering/>
+<https://github.com/Salmaashafira?tab=repositories>
 
